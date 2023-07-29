@@ -122,6 +122,7 @@ def log_stats(bio):
     """
     with open('log.txt', 'a') as log_file:
         log_file.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - {bio}\n")
+sponsorblock_settings, discord_settings, app_settings, logging_settings = read_config()
 
 while True: #Loop updates
     user_info_data = fetch_user_info(sponsorblock_settings['userid'])

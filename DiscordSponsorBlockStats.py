@@ -12,45 +12,48 @@ def create_default_config():
     """
     Create a default configuration file with comments.
     """
-    config = configparser.ConfigParser(allow_no_value=True)
-    
+    config = configparser.ConfigParser()
+
     config["Logging"] = {
-        "# Enable or disable logging of stats. Set to True to enable and False to disable.": None,
+        "# Enable or disable logging of stats. Set to True to enable and False to disable.": "",
         "enablelogging": "True"
     }
 
     config["SponsorBlock"] = {
-        "# This is the ID associated with your SponsorBlock account.": None,
+        "# This is the ID associated with your SponsorBlock account.": "",
         "userid": "<Your_User_ID>",
-        "# The base API endpoint for SponsorBlock. You probably don't need to modify this.": None,
-        "# WARNING: Making requests too frequently can lead to being rate-limited or banned.": None,
+        "# The base API endpoint for SponsorBlock. You probably don't need to modify this.": "",
+        "# WARNING: Making requests too frequently can lead to being rate-limited or banned.": "",
         "base_url": "https://sponsor.ajay.app/api"
     }
 
     config["Discord"] = {
-        "# Your Discord token. Keep this secret! This is not sent to any server and is kept locally.": None,
-        "# If you don't know how to get your token, watch this video: https://www.youtube.com/watch?v=9XJt6EbZWPU": None,
+        "# Your Discord token. Keep this secret! This is not sent to any server and is kept locally.": "",
+        "# If you don't know how to get your token, watch this video: https://www.youtube.com/watch?v=9XJt6EbZWPU": "",
         "token": "<Your_Discord_Token>",
-        "# Set to 'mainbio' to update the main account bio; which is good for users who don't have Nitro.": None,
-        "# Set to 'specificserver' to update the bio for a specific server (Nitro required)": None,
+        "# Set to 'mainbio' to update the main account bio; which is good for users who don't have Nitro.": "",
+        "# Set to 'specificserver' to update the bio for a specific server (Nitro required)": "",
         "biosetting": "mainbio",
-        "# The server ID for the specific server bio update. Defaults to the SponsorBlock server.": None,
+        "# The server ID for the specific server bio update. Defaults to the SponsorBlock server.": "",
         "guildid": "603643120093233162"
     }
 
     config["Settings"] = {
-        "# Time interval (in minutes) after which the program should update the Discord bio.": None,
-        "# WARNING: Do not set this too low to avoid spamming requests to Discord and SponsorBlock.": None,
-        "# Excessive requests can lead to being rate-limited or banned.": None,
-        "# Default is 720 minutes (12 hours).": None,
+        "# Time interval (in minutes) after which the program should update the Discord bio.": "",
+        "# WARNING: Do not set this too low to avoid spamming requests to Discord and SponsorBlock.": "",
+        "# Excessive requests can lead to being rate-limited or banned.": "",
+        "# Default is 720 minutes (12 hours).": "",
         "updateinterval": "720",
-        "# A random delay (in minutes) that will be added to the update interval to vary the bio update timings.": None,
-        "# Default is 60 minutes.": None,
+        "# A random delay (in minutes) that will be added to the update interval to vary the bio update timings.": "",
+        "# Default is 60 minutes.": "",
         "randomdelay": "60"
     }
 
     with open(CONFIG_FILE, "w") as configfile:
         config.write(configfile)
+
+
+
 
 
 if not os.path.exists(CONFIG_FILE):
@@ -64,6 +67,7 @@ def read_config():
     Read the configuration file and return the settings.
     """
     config = configparser.ConfigParser()
+    config.optionxform = str  # Preserve the original casing of keys
     config.read(CONFIG_FILE)
     
     sponsorblock_settings = dict(config["SponsorBlock"])
@@ -73,7 +77,6 @@ def read_config():
 
     return sponsorblock_settings, discord_settings, app_settings, logging_settings
 
-sponsorblock_settings, discord_settings, app_settings, logging_settings = read_config()
 
 # Fetch user information
 def fetch_user_info(user_id):

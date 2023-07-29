@@ -12,45 +12,45 @@ def create_default_config():
     """
     Create a default configuration file with comments.
     """
-    config = configparser.ConfigParser()
+    config = configparser.RawConfigParser(allow_no_value=True)
 
     config["Logging"] = {
-        "# Enable or disable logging of stats. Set to True to enable and False to disable.": "",
+        "# Enable or disable logging of stats. Set to True to enable and False to disable.": None,
         "enablelogging": "True"
     }
 
     config["SponsorBlock"] = {
-        "# This is the ID associated with your SponsorBlock account.": "",
+        "# This is the ID associated with your SponsorBlock account.": None,
         "userid": "<Your_User_ID>",
-        "# The base API endpoint for SponsorBlock. You probably don't need to modify this.": "",
-        "# WARNING: Making requests too frequently can lead to being rate-limited or banned.": "",
+        "# The base API endpoint for SponsorBlock. You probably don't need to modify this.": None,
+        "# WARNING: Making requests too frequently can lead to being rate-limited or banned.": None,
         "base_url": "https://sponsor.ajay.app/api"
     }
 
     config["Discord"] = {
-        "# Your Discord token. Keep this secret! This is not sent to any server and is kept locally.": "",
-        "# If you don't know how to get your token, watch this video: https://www.youtube.com/watch?v=9XJt6EbZWPU": "",
+        "# Your Discord token. Keep this secret! This is not sent to any server and is kept locally.": None,
+        "# If you don't know how to get your token, watch this video: https://www.youtube.com/watch?v=9XJt6EbZWPU": None,
         "token": "<Your_Discord_Token>",
-        "# Set to 'mainbio' to update the main account bio; which is good for users who don't have Nitro.": "",
-        "# Set to 'specificserver' to update the bio for a specific server (Nitro required)": "",
+        "# Set to 'mainbio' to update the main account bio; which is good for users who don't have Nitro.": None,
+        "# Set to 'specificserver' to update the bio for a specific server (Nitro required)": None,
         "biosetting": "mainbio",
-        "# The server ID for the specific server bio update. Defaults to the SponsorBlock server.": "",
+        "# The server ID for the specific server bio update. Defaults to the SponsorBlock server.": None,
         "guildid": "603643120093233162"
     }
 
     config["Settings"] = {
-        "# Time interval (in minutes) after which the program should update the Discord bio.": "",
-        "# WARNING: Do not set this too low to avoid spamming requests to Discord and SponsorBlock.": "",
-        "# Excessive requests can lead to being rate-limited or banned.": "",
-        "# Default is 720 minutes (12 hours).": "",
+        "# Time interval (in minutes) after which the program should update the Discord bio.": None,
+        "# WARNING: Do not set this too low to avoid spamming requests to Discord and SponsorBlock.": None,
+        "# Excessive requests can lead to being rate-limited or banned.": None,
+        "# Default is 720 minutes (12 hours).": None,
         "updateinterval": "720",
-        "# A random delay (in minutes) that will be added to the update interval to vary the bio update timings.": "",
-        "# Default is 60 minutes.": "",
+        "# A random delay (in minutes) that will be added to the update interval to vary the bio update timings.": None,
+        "# Default is 60 minutes.": None,
         "randomdelay": "60"
     }
 
     with open(CONFIG_FILE, "w") as configfile:
-        config.write(configfile)
+        config.write(configfile, space_around_delimiters=False)
 
 
 
